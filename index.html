@@ -14,10 +14,7 @@
   <title>jtportal</title>
   <style>
 	
-	@keyframes john {
-		  from {left: -200%; opacity: 100%;}
-		  to {left: 200%%; opacity: 100%;}
-		}
+	
 		
 	@media screen and (min-width: 700px) {
 		h1 {
@@ -127,7 +124,7 @@
 	#motd span {
 	  display: inline-block;
 	  padding-left: 100%;
-	  animation: ticker 130s linear infinite;
+	  animation: ticker 210s linear infinite;
 	}
 
 	@keyframes ticker {
@@ -222,6 +219,36 @@
 
 
 <script>
+// ===== EVENTS =====
+	const events = [
+	  { time: new Date("2026-05-01T13:10:00").getTime(), label: "NEXT TOK PERIOD" },
+	  { time: new Date("2026-05-01T14:10:00").getTime(), label: "TOK ENDS IN" },
+	  { time: new Date("2026-05-04T08:45:00").getTime(), label: "LITERATURE HL PAPER 1" },
+	  { time: new Date("2026-05-04T10:00:00").getTime(), label: "LITERATURE HL PAPER 1 TIME REMAINING" }
+	];
+
+	// sort once
+	events.sort((a, b) => a.time - b.time);
+
+
+	// ===== GET NEXT EVENT TEXT =====
+	function getNextEventText() {
+	  const now = Date.now();
+
+	  const next = events.find(e => e.time > now);
+	  if (!next) return "All events completed";
+
+	  const diff = next.time - now;
+
+	  const totalMinutes = Math.floor(diff / (1000 * 60));
+
+	  const days = Math.floor(totalMinutes / (60 * 24));
+	  const hours = Math.floor((totalMinutes % (60 * 24)) / 60);
+	  const minutes = totalMinutes % 60;
+
+	  return `${next.label}: ${days}d ${hours}h ${minutes}m`;
+	}
+
 	function shuffle(array) {
 	  for (let i = array.length - 1; i > 0; i--) {
 		const j = Math.floor(Math.random() * (i + 1));
@@ -233,26 +260,37 @@
 	
 	const messages = [
 	  "shout out to Jake Tomkins 🔥🔥🔥",
-	  "Sydney: Seth Wegrzyn thinks he can get IB dux (not gonna happen bro)",
+	  "Newtown: Seth Wegrzyn thinks he can get IB dux (not gonna happen bro)",
 	  "shout out to Aidan Newling 🔥🔥🔥",
 	  "shout out to Andrew Butler 🔥🔥🔥",
 	  "It's more than just a pen to us here at Inkdin. Rethink the Ink today!",
-	  "Washington: Trump to impose 200% tariffs on jt Portal, blames \"bad deal\".",
+	  "Washington: Trump to impose 200% tariffs on jt portal, blames \"bad deal\".",
 	  "Tehran: jt portal to impose toll on all ships travelling through Strait of Hormuz.",
-	  "Sydney: Christian Lau reportedly best French Horn player in the entire world.",
+	  "Pymble: Christian Lau reportedly best French Horn player in the entire world.",
+	  "北京： 我现在有冰淇淋，我很喜欢冰淇淋。",
+	  "San Francisco: RevisionDojo servers destroyed in unfortunate accident, IB students angered",
+	  "shout out to Henry McDonald"
 	  ];
 
-	// shuffle them
-	const ticker = document.querySelector('#motd span');
+	function buildTicker() {
+	  const ticker = document.querySelector('#motd span');
 
-	const shuffled = shuffle(messages);
+	  const shuffled = shuffle([...messages]);
 
-	const spacer = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
-	const tickerText = shuffled.join(spacer);
+	  const spacer = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
 
-	// duplicate for looping
-	ticker.innerHTML = tickerText + spacer + tickerText;
-		
+	  // 👇 ADD EVENT TEXT
+	  const eventText = getNextEventText();
+	  shuffled.push(eventText);
+
+	  const tickerText = shuffled.join(spacer);
+
+	  // duplicate for smooth loop
+	  ticker.innerHTML = tickerText + spacer + tickerText;
+	}
+	
+	buildTicker();
+	setInterval(buildTicker, 60000);
 
 	
 	
