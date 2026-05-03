@@ -1,2 +1,1 @@
-# sneaky-jiyky
-studentportal
+jtportal
