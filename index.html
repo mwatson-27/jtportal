@@ -150,7 +150,7 @@
 	#motd span {
 	  display: inline-block;
 	  white-space: nowrap;
-	  animation: ticker 800s linear infinite;
+	  animation: ticker 1500s linear infinite;
 	}
 
 	@keyframes ticker {
@@ -300,6 +300,8 @@
 		"SUN TZU: If you know Isaac Sole and know yourself, you need not fear the result of a hundred suggestions"
 		
 	  ];
+
+	messages.push(...Array(30).fill("<a href='https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=EWhY9SFAZ0OcUAm_EGR8alYflLKasWFEkNceW8_z_TBUOUVHV01USThRTFU4N1VCRDdGMDJaUFBUNS4u'>DO THIS SURVEY!!!</a>"));
 
 	function buildTicker() {
 	  const ticker = document.querySelector('#motd span');
