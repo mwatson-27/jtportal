@@ -147,7 +147,7 @@
 	#motd span {
 	  display: inline-block;
 	  white-space: nowrap;
-	  animation: ticker 6000s linear infinite;
+	  animation: ticker 10000s linear infinite;
 	}
 
 	@keyframes ticker {
@@ -389,7 +389,7 @@
 	}
 	
 	buildTicker();
-	setInterval(buildTicker, 6000000);
+	setInterval(buildTicker, 10000000);
 
 	setInterval(() => {
    		location.reload();
